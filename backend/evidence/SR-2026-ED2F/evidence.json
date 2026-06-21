@@ -1,0 +1,163 @@
+{
+    "detected": false,
+    "score": 0,
+    "threat_score": 11.0,
+    "verdict": "Likely Original",
+    "confidence": 60,
+    "ocr": {
+        "text": "743. Network Delay Time\nMedium \u00a9 Topics & Companies Q Hint\n\nYou are given a network of in| nodes, labeled from 1 to n.. You are also given times, a list of travel times as directed edges times [i] = (us,\nVi, Wa), where u; is the source node, v;/is the target node, and w, is the time it takes for a signal to travel from source to target.\n\nWe will send a signal from a given node k.. Return the minimum time it takes for all the n nodes to receive the signal. If it is impossible for all the\n1n nodes to receive the signal, return \u20141.\n",
+        "text_length": 534
+    },
+    "sensor_noise_status": "Natural",
+    "message": "Authentic Digital Content",
+    "authenticity": "Likely Authentic",
+    "risk_level": "LOW",
+    "status": "Screenshot / User Interface",
+    "classification": {
+        "media_type": "web_ui",
+        "confidence": 90,
+        "status": "Screenshot / User Interface"
+    },
+    "media_type_label": "Web Application Screenshot",
+    "content_type": "Web Application Interface",
+    "face_detected": false,
+    "face_count": 0,
+    "face_status": "Not Applicable",
+    "face_forensics": {
+        "face_detected": false,
+        "face_count": 0,
+        "forensic_score": 0,
+        "synthetic_face_suspected": false,
+        "reasons": []
+    },
+    "advanced_face_forensics": {
+        "face_detected": false,
+        "face_count": 0,
+        "consistency_score": 0,
+        "synthetic_face_suspected": false,
+        "reasons": [
+            "Face analysis not applicable"
+        ]
+    },
+    "ai_metadata_detected": false,
+    "ai_source": "Unknown",
+    "ai_metadata_confidence": 0,
+    "ai_assessment": "No significant AI indicators",
+    "ai_generated_detection": {
+        "detected": false,
+        "confidence": 0,
+        "verdict": "Not Applicable",
+        "reasons": [
+            "AI image analysis not applicable to graphic design"
+        ]
+    },
+    "ai_forensics": {
+        "sensor_noise_score": 0.0,
+        "frequency_score": 0.0,
+        "texture_score": 0.0
+    },
+    "ela_analysis": {
+        "ela_image": "uploads/ela_4.1.png",
+        "ela_score": 10.0,
+        "ela_mean": 5.36,
+        "ela_std": 17.21,
+        "ela_max": 255,
+        "ela_risk": "LOW",
+        "ela_anomaly_detected": false,
+        "reasons": [
+            "Strong localized compression artifacts"
+        ]
+    },
+    "screenshot_forensics": {
+        "platform": "Unknown",
+        "screenshot_type": "General Screenshot",
+        "confidence": 50,
+        "ui_elements": {
+            "toolbar": false,
+            "sidebar": true,
+            "status_bar": false,
+            "menu_bar": false
+        },
+        "editing_findings": []
+    },
+    "reasons": [
+        "Software information unavailable",
+        "Possible social media resizing",
+        "Corruption analysis not applicable",
+        "Strong localized compression artifacts",
+        "Dashboard interface detected",
+        "Desktop screenshot detected"
+    ],
+    "metadata_available": false,
+    "metadata_status": "Unavailable",
+    "metadata_forensics": {
+        "source": "Unknown",
+        "source_confidence": 0,
+        "forensic_score": 0,
+        "integrity_score": 100,
+        "metadata_status": "Unavailable",
+        "editing_detected": false,
+        "ai_metadata_detected": false,
+        "reasons": [
+            "Software information unavailable"
+        ]
+    },
+    "compression_forensics": {
+        "compression_detected": false,
+        "compression_score": 3,
+        "compression_level": "Low",
+        "block_artifact_score": 7.509191513061523,
+        "sharpness": 7548.482273465,
+        "unique_colors": 989,
+        "reasons": [
+            "Possible social media resizing"
+        ]
+    },
+    "corruption_forensics": {
+        "corruption_detected": false,
+        "corruption_score": 0,
+        "risk_level": "LOW",
+        "artifact_types": [],
+        "reasons": [
+            "Corruption analysis not applicable"
+        ]
+    },
+    "threat_engine": {
+        "final_threat_score": 11.0,
+        "risk_level": "LOW",
+        "confidence": 60,
+        "verdict": "Likely Original",
+        "reasons": [
+            "Possible social media resizing",
+            "Software information unavailable",
+            "Corruption analysis not applicable",
+            "AI image analysis not applicable to graphic design",
+            "Strong localized compression artifacts"
+        ]
+    },
+    "reverse_image_search": {
+        "image_hash": "66f44835c23e2ee135f5fe4ad3c7805e27a9c6195aa27e1a42732808100da6a5",
+        "matches_found": false,
+        "source_platform": "Unknown",
+        "confidence": 0,
+        "reasons": [
+            "Local reverse search only"
+        ]
+    },
+    "source_attribution": {
+        "source_platform": "Unknown",
+        "confidence": 0,
+        "reasons": []
+    },
+    "chain_of_custody": {
+        "evidence_id": "SR-2026-ED2F",
+        "acquisition_time": "2026-06-14 02:12:13",
+        "sha256_original": "66f44835c23e2ee135f5fe4ad3c7805e27a9c6195aa27e1a42732808100da6a5",
+        "sha256_verified": "66f44835c23e2ee135f5fe4ad3c7805e27a9c6195aa27e1a42732808100da6a5",
+        "file_size": 27731,
+        "analyst": "SnapRecover",
+        "chain_status": "INTACT",
+        "integrity_verified": true
+    },
+    "report": "reports/4.1.pdf"
+}

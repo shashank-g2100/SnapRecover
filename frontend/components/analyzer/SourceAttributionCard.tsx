@@ -1,0 +1,294 @@
+// interface Props {
+//   data: any
+// }
+
+// export default function SourceAttributionCard({
+//   data
+// }: Props) {
+
+//   return (
+//     <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
+
+//       <h2 className="text-2xl font-bold mb-5">
+//         Source Attribution
+//       </h2>
+
+//       <div className="space-y-3">
+
+//         <p>
+//           Platform:
+//           {" "}
+//           {data?.source_platform}
+//         </p>
+
+//         <p>
+//           Confidence:
+//           {" "}
+//           {data?.confidence}%
+//         </p>
+
+//         <div>
+
+//           <h3 className="font-semibold">
+//             Evidence
+//           </h3>
+
+//           <ul className="list-disc ml-5 text-zinc-400">
+
+//             {
+//               data?.reasons?.map(
+//                 (
+//                   item: string,
+//                   index: number
+//                 ) => (
+//                   <li key={index}>
+//                     {item}
+//                   </li>
+//                 )
+//               )
+//             }
+
+//           </ul>
+
+//         </div>
+
+//       </div>
+
+//     </div>
+//   )
+// }
+
+// "use client";
+
+// import {
+//   Fingerprint,
+//   Globe2,
+//   BadgeCheck,
+//   FileSearch,
+//   CheckCircle2,
+// } from "lucide-react";
+
+// interface Props {
+//   data: any;
+// }
+
+// function MetricCard({
+//   title,
+//   value,
+//   icon,
+//   color = "text-[#19e6d2]",
+// }: {
+//   title: string;
+//   value: any;
+//   icon: React.ReactNode;
+//   color?: string;
+// }) {
+//   return (
+//     <div className="bg-[#08111f] border border-[#1b2a41] rounded-xl p-4">
+//       <div className="flex items-center gap-2">
+//         <span className={color}>{icon}</span>
+
+//         <p className="text-[10px] uppercase tracking-[0.18em] text-[#8191b1] font-mono">
+//           {title}
+//         </p>
+//       </div>
+
+//       <p className={`mt-4 text-xl font-semibold ${color}`}>
+//         {value ?? "—"}
+//       </p>
+//     </div>
+//   );
+// }
+
+// export default function SourceAttributionCard({
+//   data,
+// }: Props) {
+//   const confidence = Number(data?.confidence ?? 0);
+
+//   const confidenceColor =
+//     confidence >= 75
+//       ? "text-emerald-400"
+//       : confidence >= 45
+//       ? "text-yellow-400"
+//       : "text-red-400";
+
+//   return (
+//     <div className="bg-[#050816] border border-[#1b2a41] rounded-2xl p-5 md:p-6">
+//       {/* HEADER */}
+//       <div className="flex items-start justify-between gap-4 mb-6">
+//         <div className="flex items-center gap-3">
+//           <div className="w-11 h-11 rounded-xl bg-[#19e6d2]/10 border border-[#19e6d2]/20 flex items-center justify-center text-[#19e6d2]">
+//             <Fingerprint size={21} />
+//           </div>
+
+//           <div>
+//             <p className="text-[10px] uppercase tracking-[0.2em] text-[#8191b1] font-mono">
+//               Origin Intelligence
+//             </p>
+
+//             <h2 className="font-serif text-2xl font-bold text-white mt-1">
+//               Source Attribution
+//             </h2>
+//           </div>
+//         </div>
+
+//         <div className="px-3 py-2 rounded-lg border border-[#19e6d2]/30 bg-[#19e6d2]/10 text-[#19e6d2] text-xs font-semibold flex items-center gap-2">
+//           <CheckCircle2 size={15} />
+//           ANALYSIS COMPLETE
+//         </div>
+//       </div>
+
+//       {/* METRICS */}
+//       <div className="grid md:grid-cols-2 gap-4">
+//         <MetricCard
+//           title="Source Platform"
+//           value={data?.source_platform || "Unknown"}
+//           icon={<Globe2 size={16} />}
+//           color="text-sky-400"
+//         />
+
+//         <MetricCard
+//           title="Attribution Confidence"
+//           value={`${confidence}%`}
+//           icon={<BadgeCheck size={16} />}
+//           color={confidenceColor}
+//         />
+//       </div>
+
+//       {/* EVIDENCE */}
+//       <div className="mt-5 bg-[#08111f] border border-[#1b2a41] rounded-xl overflow-hidden">
+//         <div className="px-5 py-4 border-b border-[#1b2a41] flex items-center gap-2">
+//           <FileSearch size={17} className="text-[#19e6d2]" />
+
+//           <p className="text-[10px] uppercase tracking-[0.2em] text-[#8191b1] font-mono">
+//             Attribution Evidence
+//           </p>
+//         </div>
+
+//         <div className="p-5 space-y-3">
+//           {data?.reasons?.length > 0 ? (
+//             data.reasons.map((item: string, index: number) => (
+//               <div
+//                 key={index}
+//                 className="flex items-start gap-3 text-sm text-slate-300"
+//               >
+//                 <span className="text-[#19e6d2] mt-0.5">•</span>
+//                 <span>{item}</span>
+//               </div>
+//             ))
+//           ) : (
+//             <p className="text-sm text-[#8191b1]">
+//               No source attribution evidence is currently available.
+//             </p>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+"use client";
+
+import {
+  Fingerprint,
+  Globe2,
+  BadgeCheck,
+  CheckCircle2,
+} from "lucide-react";
+
+import ForensicMetric from "./ForensicMetric";
+import ForensicFindings from "./ForensicFindings";
+
+interface Props {
+  data: any;
+}
+
+export default function SourceAttributionCard({ data }: Props) {
+  const confidence = Number(data?.confidence || 0);
+
+  const confidenceTone =
+    confidence >= 75
+      ? "green"
+      : confidence >= 45
+      ? "yellow"
+      : "red";
+
+  return (
+    <div className="bg-[#050816] border border-[#1b2a41] rounded-2xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.22)]">
+      <div className="h-1 bg-[#19e6d2]" />
+
+      <div className="p-5 md:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-xl bg-[#19e6d2]/10 border border-[#19e6d2]/20 flex items-center justify-center">
+              <Fingerprint size={21} className="text-[#19e6d2]" />
+            </div>
+
+            <div>
+              <p className="text-[12px] uppercase tracking-[0.2em] text-[#8191b1]">
+                Origin Intelligence
+              </p>
+
+              <h2 className="font-serif text-2xl font-bold text-white mt-1">
+                Source Attribution
+              </h2>
+            </div>
+          </div>
+
+          <div className="px-3 py-2 rounded-lg border border-[#19e6d2]/30 bg-[#19e6d2]/10 text-[#19e6d2] text-xs font-semibold flex items-center gap-2">
+            <CheckCircle2 size={15} />
+            ATTRIBUTION COMPLETE
+          </div>
+        </div>
+
+        {/* <div className="bg-[#08111f] border border-[#1b2a41] rounded-xl p-4 mb-5">
+          <div className="flex items-center justify-between">
+            <p className="text-[10px] uppercase tracking-[0.18em] text-[#8191b1] font-mono">
+              Attribution Confidence
+            </p>
+
+            <p className="text-sm font-semibold text-[#19e6d2]">
+              {confidence.toFixed(1)}%
+            </p>
+          </div>
+
+          <div className="mt-3 h-2 bg-[#111d31] rounded-full overflow-hidden">
+            <div
+              className={`h-full rounded-full ${
+                confidence >= 75
+                  ? "bg-emerald-400"
+                  : confidence >= 45
+                  ? "bg-yellow-400"
+                  : "bg-red-400"
+              }`}
+              style={{ width: `${Math.min(confidence, 100)}%` }}
+            />
+          </div>
+        </div> */}
+
+        <div className="grid sm:grid-cols-2 gap-4">
+          <ForensicMetric
+            label="Source Platform"
+            value={data?.source_platform || "Unknown"}
+            icon={<Globe2 size={18} />}
+            tone="blue"
+          />
+
+          <ForensicMetric
+            label="Attribution Confidence"
+            value={`${confidence}%`}
+            icon={<BadgeCheck size={18} />}
+            tone={confidenceTone}
+          />
+        </div>
+
+        <ForensicFindings
+          title="Attribution Evidence"
+          findings={data?.reasons || []}
+          severity={confidence < 45 ? "high" : "low"}
+          emptyText="No external source attribution evidence is available."
+        />
+      </div>
+    </div>
+  );
+}
