@@ -82,15 +82,11 @@ def analyze_face_consistency(
     )
 
     if image is None:
-
         return {
-
             "face_detected": False,
-
+            "face_count": 0,
             "face_consistency_score": 0,
-
             "synthetic_face_suspected": False,
-
             "reasons": [
                 "Unable to load image"
             ]
@@ -104,102 +100,50 @@ def analyze_face_consistency(
     faces = face_cascade.detectMultiScale(
         gray,
         scaleFactor=1.1,
-        minNeighbors=5,
-        minSize=(30, 30)
+        minNeighbors=8,
+        minSize=(80, 80),
     )
 
-    if len(faces) == 0:
+    face_count = len(faces)
 
+    # Prevent logos, icons, and small patterns from being treated as faces
+    face_detected = face_count > 0
+
+    if not face_detected:
         return {
-
             "face_detected": False,
-
+            "face_count": 0,
             "face_consistency_score": 0,
-
             "synthetic_face_suspected": False,
-
-            "reasons": []
+            "reasons": [],
         }
 
     score = 0
-
     reasons = []
 
-    for (
-        x,
-        y,
-        w,
-        h
-    ) in faces:
+    for x, y, w, h in faces:
+        face = image[y:y+h, x:x+w]
 
-        face = image[
-            y:y+h,
-            x:x+w
-        ]
-
-        symmetry = calculate_symmetry(
-            face
-        )
-
-        texture = texture_score(
-            face
-        )
-
-        edge_density = edge_score(
-            face
-        )
-
-        # =========================
-        # Symmetry
-        # =========================
+        symmetry = calculate_symmetry(face)
+        texture = texture_score(face)
+        edge_density = edge_score(face)
 
         if symmetry < 15:
-
             score += 15
-
-            reasons.append(
-                "Unnaturally symmetric face"
-            )
-
-        # =========================
-        # Texture
-        # =========================
+            reasons.append("Unnaturally symmetric face")
 
         if texture < 25:
-
             score += 15
-
-            reasons.append(
-                "Overly smooth facial texture"
-            )
-
-        # =========================
-        # Edge Consistency
-        # =========================
+            reasons.append("Overly smooth facial texture")
 
         if edge_density < 0.03:
-
             score += 10
-
-            reasons.append(
-                "Low facial edge complexity"
-            )
+            reasons.append("Low facial edge complexity")
 
     return {
-
-        "face_detected": True,
-
-        "face_count": len(
-            faces
-        ),
-
-        "face_consistency_score":
-            score,
-
-        "synthetic_face_suspected":
-            score >= 30,
-
-        "reasons":
-            reasons
+        "face_detected": face_detected,
+        "face_count": face_count,
+        "face_consistency_score": score,
+        "synthetic_face_suspected": score >= 30,
+        "reasons": reasons,
     }
-

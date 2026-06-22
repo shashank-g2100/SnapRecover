@@ -10,6 +10,26 @@ def calculate_threat_score(
     score = 0
     reasons = []
 
+    corruption = corruption_forensics or {}
+
+    if corruption.get("corruption_detected"):
+        corruption_score = corruption.get(
+            "corruption_score",
+            0
+        )
+
+        if corruption_score >= 70:
+            score += 70
+            reasons.append(
+                "Severe visual corruption detected."
+            )
+
+        elif corruption_score >= 35:
+            score += 40
+            reasons.append(
+                "Visual corruption artifacts detected."
+            )
+
     # =====================================
     # METADATA
     # =====================================
@@ -139,14 +159,12 @@ def calculate_threat_score(
     # =====================================
     # RISK LEVEL
     # =====================================
-    if score <= 30:
-        risk_level = "LOW"
-
-    elif score <= 60:
-        risk_level = "MEDIUM"
-
-    else:
+    if score >= 70:
         risk_level = "HIGH"
+    elif score >= 40:
+        risk_level = "MEDIUM"
+    else:
+        risk_level = "LOW"
 
     # =====================================
     # CONFIDENCE

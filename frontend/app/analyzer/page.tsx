@@ -959,13 +959,13 @@ export default function AnalyzerPage() {
   const threatEngine = result?.ai_detection?.threat_engine;
 
   const finalThreatScore =
-    threatEngine?.final_threat_score ||
-    result?.threat_score ||
+    threatEngine?.final_threat_score ??
+    result?.threat_score ??
     0;
 
   const riskLevel =
-    threatEngine?.risk_level ||
-    result?.risk_level ||
+    threatEngine?.risk_level ??
+    result?.risk_level ??
     "UNKNOWN";
 
   const isDanger =
@@ -1550,7 +1550,18 @@ export default function AnalyzerPage() {
 
                 {activeTab === "ocr" && (
                   <OCRAnalysis
-                    ocr={result?.ocr_text}
+                    ocr={{
+                      text:
+                        result?.ocr_text ||
+                        result?.ocr?.text ||
+                        result?.ai_detection?.ocr?.text ||
+                        "",
+                      text_length:
+                        result?.ocr?.text_length ||
+                        result?.ai_detection?.ocr?.text_length ||
+                        result?.ocr_text?.length ||
+                        0,
+                    }}
                   />
                 )}
 

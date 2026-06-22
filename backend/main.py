@@ -24,6 +24,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.mount(
+    "/reports",
+    StaticFiles(directory="reports"),
+    name="reports"
+)
+
 @app.get("/")
 async def home():
     return {"message": "SnapRecover Backend Running"}

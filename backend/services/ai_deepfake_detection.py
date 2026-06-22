@@ -367,6 +367,14 @@ def detect_ai_generated(image_path):
         )
     )
 
+    # =====================================
+    # CORRUPTION OVERRIDE
+    # =====================================
+    if corruption_analysis.get("corruption_score", 0) >= 35:
+        image_type = "corrupted_image"
+        status = "Corrupted / Manipulated Image"
+        content_type = "Corrupted Camera Image"
+
     source_data = {
         "platform": "Unknown",
         "screenshot_type": "Unknown",
@@ -567,55 +575,55 @@ def detect_ai_generated(image_path):
         # =====================================================
         # DIGITAL ARTIFACT DETECTION
         # =====================================================
-        horizontal_band_score = 0
-        for y in range(1, gray.shape[0]):
-            row_diff = np.mean(
-                np.abs(
-                    gray[y].astype(np.float32)
-                    - gray[y - 1].astype(np.float32)
-                )
-            )
-            if row_diff > 40:
-                horizontal_band_score += 1
-        band_ratio = horizontal_band_score / gray.shape[0]
-        line_count = 0
-        for y in range(2, gray.shape[0]):
-            diff = np.mean(
-                np.abs(
-                    gray[y].astype(np.float32)
-                    - gray[y - 1].astype(np.float32)
-                )
-            )
-            if diff > 70:
-                line_count += 1
+        # horizontal_band_score = 0
+        # for y in range(1, gray.shape[0]):
+        #     row_diff = np.mean(
+        #         np.abs(
+        #             gray[y].astype(np.float32)
+        #             - gray[y - 1].astype(np.float32)
+        #         )
+        #     )
+        #     if row_diff > 40:
+        #         horizontal_band_score += 1
+        # band_ratio = horizontal_band_score / gray.shape[0]
+        # line_count = 0
+        # for y in range(2, gray.shape[0]):
+        #     diff = np.mean(
+        #         np.abs(
+        #             gray[y].astype(np.float32)
+        #             - gray[y - 1].astype(np.float32)
+        #         )
+        #     )
+        #     if diff > 70:
+        #         line_count += 1
 
-        # approximate overall glitchiness by mean row differences normalized
-        try:
-            mean_row_diff = np.mean(
-                np.abs(np.diff(gray.astype(np.float32), axis=0))
-            )
-            glitch_ratio = mean_row_diff / 255.0
-        except Exception:
-            glitch_ratio = 0.0
+        # # approximate overall glitchiness by mean row differences normalized
+        # try:
+        #     mean_row_diff = np.mean(
+        #         np.abs(np.diff(gray.astype(np.float32), axis=0))
+        #     )
+        #     glitch_ratio = mean_row_diff / 255.0
+        # except Exception:
+        #     glitch_ratio = 0.0
 
-        if image_type == "camera_photo":
-            if line_count > 3:
-                score += 25
-                reasons.append(
-                    "Severe horizontal signal corruption detected"
-                )
+        # if image_type == "camera_photo":
+        #     if line_count > 3:
+        #         score += 25
+        #         reasons.append(
+        #             "Severe horizontal signal corruption detected"
+        #         )
 
-            if band_ratio > 0.02:
-                score += 35
-                reasons.append(
-                    "Horizontal corruption artifacts detected"
-                )
+        #     if band_ratio > 0.02:
+        #         score += 35
+        #         reasons.append(
+        #             "Horizontal corruption artifacts detected"
+        #         )
 
-            if glitch_ratio > 0.03:
-                score += 25
-                reasons.append(
-                    "Abnormal digital artifact patterns detected"
-                )
+        #     if glitch_ratio > 0.03:
+        #         score += 25
+        #         reasons.append(
+        #             "Abnormal digital artifact patterns detected"
+        #         )
 
         # =====================================================
         # OVEREXPOSURE DETECTION
@@ -1134,7 +1142,7 @@ def detect_ai_generated(image_path):
             "graphic_design",
             "poster",
             "digital_artwork"
-        ]:
+        ] and corruption_analysis.get("corruption_score", 0) < 35:
             score = min(score, 35)
 
         elif image_type in [
@@ -1217,6 +1225,7 @@ def detect_ai_generated(image_path):
             "digital_artwork": "Digital Artwork",
             "document_scan": "Scanned Document",
             "ai_generated": "AI Generated Image",
+            "corrupted_image": "Corrupted Camera Image",
             "unknown": "Unknown Media"
         }
         media_type_label = media_labels.get(
